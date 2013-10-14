@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="org.smile.websqldatabase.initializer"
+        version="0.0.1">
+
+    <name>WebSqlDatabaseInitializer</name>
+    <description>WebSqlDatabase initializer</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,websqldatabase,initializer</keywords>
+
+    <!-- android -->
+    <platform name="android">
+        <source-file target-dir="src/org/smile/websqldatabase" src="src/android/org/smile/websqldatabase/AsyncLoadDatabase.java" />
+        <source-file target-dir="src/org/smile/websqldatabase" src="src/android/org/smile/websqldatabase/DatabaseConfig.java" />
+        <source-file target-dir="src/org/smile/websqldatabase" src="src/android/org/smile/websqldatabase/DatabaseInitializable.java" />
+        <source-file target-dir="src/org/smile/websqldatabase" src="src/android/org/smile/websqldatabase/DatabaseInitializer.java" />
+        <info>
+            You need to:
+            * add "implements DatabaseInitializable" on your main class
+            * implement the getDatabaseConfig method (with the correct database configuration)
+            * implement the loadWebApp method (with the Cordova init code usually in the onCreate method)
+            * remove the Cordova init code in the onCreate method
+            * load the database and run the app with "DatabaseInitializer.load(this);" in the onCreate method
+            * add the "Databases.db" file in your assets directory
+            * add the zipped database to initialize in your assets directory
+        </info>
+    </platform>
+</plugin>
