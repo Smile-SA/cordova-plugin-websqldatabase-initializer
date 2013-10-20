@@ -26,4 +26,33 @@
             * add the zipped database to initialize in your assets directory
         </info>
     </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <header-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/crypt.h" />
+        <source-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/ioapi.c" />
+        <header-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/ioapi.h" />
+        <source-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/mztools.c" />
+        <header-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/mztools.h" />
+        <source-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/unzip.c" />
+        <header-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/unzip.h" />
+        <source-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/zip.c" />
+        <header-file target-dir="ZipArchive/minizip" src="src/ios/ZipArchive/minizip/zip.h" />
+        <header-file target-dir="ZipArchive" src="src/ios/ZipArchive/ZipArchive.h" />
+        <source-file target-dir="ZipArchive" src="src/ios/ZipArchive/ZipArchive.mm" compiler-flags="-fno-objc-arc" />
+        <header-file src="src/ios/DatabaseConfig.h" />
+        <source-file src="src/ios/DatabaseConfig.m" />
+        <header-file src="src/ios/LoadDatabase.h" />
+        <source-file src="src/ios/LoadDatabase.m" />
+        <framework src="libz.1.2.5.dylib" weak="true" />
+        <info>
+            You need to:
+
+            * import "LoadDatabase.h" and "DatabaseConfig.h" in your main class
+            * in the init method of your main class, call the "load" method on a "LoadDatabase" object with the correct DatabaseConfig in parameters:
+            [[LoadDatabase new] load:[[DatabaseConfig alloc] init:@"myDemoSQLiteDB.zip" secondValue:@"myDemoSQLiteDB.db"]];
+            * add the "Databases.db" file in your Resources directory
+            * add the zipped database to initialize in your Resources directory
+        </info>
+    </platform>
 </plugin>

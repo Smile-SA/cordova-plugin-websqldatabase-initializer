@@ -15,3 +15,14 @@ You need to:
    * load the database and run the app with "DatabaseInitializer.load(this);" in the onCreate method
    * add the "Databases.db" file in your assets directory
    * add the zipped database to initialize in your assets directory
+
+## iOS
+You need to:
+
+  * import "LoadDatabase.h" and "DatabaseConfig.h" in your main class
+  * in the init method of your main class, call the "load" method on a "LoadDatabase" object with the correct DatabaseConfig in parameters:
+
+
+    [[LoadDatabase new] load:[[DatabaseConfig alloc] init:@"myDemoSQLiteDB.zip" secondValue:@"myDemoSQLiteDB.db"]];
+  * add the "Databases.db" file in your Resources directory
+  * add the zipped database to initialize in your Resources directory
