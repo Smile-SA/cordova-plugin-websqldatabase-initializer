@@ -15,16 +15,6 @@
         <source-file target-dir="src/org/smile/websqldatabase" src="src/android/org/smile/websqldatabase/DatabaseConfig.java" />
         <source-file target-dir="src/org/smile/websqldatabase" src="src/android/org/smile/websqldatabase/DatabaseInitializable.java" />
         <source-file target-dir="src/org/smile/websqldatabase" src="src/android/org/smile/websqldatabase/DatabaseInitializer.java" />
-        <info>
-            You need to:
-            * add "implements DatabaseInitializable" on your main class
-            * implement the getDatabaseConfig method (with the correct database configuration)
-            * implement the loadWebApp method (with the Cordova init code usually in the onCreate method)
-            * remove the Cordova init code in the onCreate method
-            * load the database and run the app with "DatabaseInitializer.load(this);" in the onCreate method
-            * add the "Databases.db" file in your assets directory
-            * add the zipped database to initialize in your assets directory
-        </info>
     </platform>
 
     <!-- ios -->
@@ -45,42 +35,17 @@
         <header-file src="src/ios/LoadDatabase.h" />
         <source-file src="src/ios/LoadDatabase.m" />
         <framework src="libz.1.2.5.dylib" weak="true" />
-        <info>
-            You need to:
-
-            * import "LoadDatabase.h" and "DatabaseConfig.h" in your main class
-            * in the init method of your main class, call the "load" method on a "LoadDatabase" object with the correct DatabaseConfig in parameters:
-            [[LoadDatabase new] load:[[DatabaseConfig alloc] init:@"myDemoSQLiteDB.zip" secondValue:@"myDemoSQLiteDB.db"]];
-            * add the "Databases.db" file in your Resources directory
-            * add the zipped database to initialize in your Resources directory
-        </info>
     </platform>
 
     <!-- wp7 -->
     <platform name="wp7">
         <source-file src="src/wp/SharpGIS.UnZipper.cs" />
         <source-file src="src/wp/DatabaseLoader.cs" />
-        <info>
-            You need to:
-
-            * import "org.smile.websqldatabase" in your main class
-            * in the init method of your main class, call the "LoadDatabase" method on a "DatabaseLoader" object with the correct DatabaseConfig in parameters:
-            new DatabaseLoader().LoadDatabase(new DatabaseConfig(@"myDemoSQLiteDB.zip", @"myDemoSQLiteDB.db"));
-            * add the zipped database to initialize in the root directory of your solution
-        </info>
     </platform>
 
     <!-- wp8 -->
     <platform name="wp8">
         <source-file src="src/wp/SharpGIS.UnZipper.cs" />
         <source-file src="src/wp/DatabaseLoader.cs" />
-        <info>
-            You need to:
-
-            * import "org.smile.websqldatabase" in your main class
-            * in the init method of your main class, call the "LoadDatabase" method on a "DatabaseLoader" object with the correct DatabaseConfig in parameters:
-            new DatabaseLoader().LoadDatabase(new DatabaseConfig(@"myDemoSQLiteDB.zip", @"myDemoSQLiteDB.db"));
-            * add the zipped database to initialize in the root directory of your solution
-        </info>
     </platform>
 </plugin>
