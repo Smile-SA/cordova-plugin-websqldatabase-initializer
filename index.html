@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Cordova-plugin-websqldatabase-initializer : Cordova plugin for WebSqlDatabase initialization" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Cordova-plugin-websqldatabase-initializer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer">View on GitHub</a>
+
+          <h1 id="project_title">Cordova-plugin-websqldatabase-initializer</h1>
+          <h2 id="project_tagline">Cordova plugin for WebSqlDatabase initialization</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>This is a Cordova 3 plugin (using the new plugin management system) that enables initialization for WebSqlDatabase.</p>
+
+<p>If you want your PhoneGap application to start with a preloaded WebSqlDatabase, this plugin will simplify it for you.</p>
+
+<p>This plugin is compatible with iOS, Android and WP (7 &amp; 8).</p>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>Using the Cordova 3 Command-line Interface:</p>
+
+<div class="highlight highlight-sh"><pre>cordova plugin add org.smile.websqldatabase.initializer
+</pre></div>
+
+<p>If you are not using the Cordova Command-line Interface, follow <a href="http://cordova.apache.org/docs/en/edge/plugin_ref_plugman.md.html">Using Plugman to Manage Plugins</a>.</p>
+
+<h2>
+<a name="create-the-database-containing-initialization-data" class="anchor" href="#create-the-database-containing-initialization-data"><span class="octicon octicon-link"></span></a>Create the database containing initialization data</h2>
+
+<p>The database used for initialization (named "myDemoSQLiteDB" below) is an SQLite file with a ".db" extension compressed in a ".zip" file.</p>
+
+<p>You can create the ".db" file with the initial content via Chrome/Chromium using the WebSqlDatabase API (and retrieve it from the "databases" diretory of the <a href="http://www.chromium.org/user-experience/user-data-directory">User Data Directory</a>) or with an SQLite client (sqlite3, sqlitebrowser, ...).</p>
+
+<p>Name the resulting database binary file with a ".db" extension and zip it.</p>
+
+<h2>
+<a name="databasesdb" class="anchor" href="#databasesdb"><span class="octicon octicon-link"></span></a>Databases.db</h2>
+
+<p>For iOS and Android, a Databases.db file is required to "index" the available databases.</p>
+
+<p>To create this file, use an SQLite client (sqlite3, sqlitebrowser, ...) and execute the following code (replacing "myDemoSQLiteDB.db" with the correct value):</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Databases</span> <span class="p">(</span><span class="n">guid</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="n">origin</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">name</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">displayName</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">estimatedSize</span> <span class="nb">INTEGER</span><span class="p">,</span> <span class="n">path</span> <span class="nb">TEXT</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">Databases</span> <span class="k">VALUES</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'file__0'</span><span class="p">,</span> <span class="s1">'myDemoSQLiteDB.db'</span><span class="p">,</span> <span class="s1">'Proto DB'</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="s1">'myDemoSQLiteDB.db'</span><span class="p">);</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Origins</span> <span class="p">(</span><span class="n">origin</span> <span class="nb">TEXT</span> <span class="k">UNIQUE</span> <span class="k">ON</span> <span class="n">CONFLICT</span> <span class="k">REPLACE</span><span class="p">,</span> <span class="n">quota</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">ON</span> <span class="n">CONFLICT</span> <span class="n">FAIL</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">Origins</span> <span class="k">VALUES</span><span class="p">(</span><span class="s1">'file__0'</span><span class="p">,</span><span class="mi">52428800</span><span class="p">);</span>
+</pre></div>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a name="android" class="anchor" href="#android"><span class="octicon octicon-link"></span></a>Android</h3>
+
+<ul>
+<li>import "org.smile.websqldatabase.*" in your main class:</li>
+</ul><div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">org.smile.websqldatabase.*</span><span class="o">;</span>
+</pre></div>
+
+<ul>
+<li>add "implements DatabaseInitializable" on your main class</li>
+<li>implement the getDatabaseConfig method (with the correct database configuration):</li>
+</ul><div class="highlight highlight-java"><pre><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">DatabaseConfig</span> <span class="nf">getDatabaseConfig</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">DatabaseConfig</span><span class="o">(</span><span class="s">"myDemoSQLiteDB.zip"</span><span class="o">,</span> <span class="s">"myDemoSQLiteDB.db"</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<ul>
+<li>implement the loadWebApp method (with the Cordova init code usually in the onCreate method)</li>
+</ul><div class="highlight highlight-java"><pre><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">loadWebApp</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">loadUrl</span><span class="o">(</span><span class="n">Config</span><span class="o">.</span><span class="na">getStartUrl</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+
+<ul>
+<li>remove the Cordova init code in the onCreate method</li>
+<li>load the database and run the app with "DatabaseInitializer.load(this);" in the onCreate method</li>
+</ul><div class="highlight highlight-java"><pre><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+    <span class="n">DatabaseInitializer</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<ul>
+<li>add the "Databases.db" file in your assets directory</li>
+<li>add the zipped database ("myDemoSQLiteDB.zip") in your assets directory</li>
+</ul><h3>
+<a name="ios" class="anchor" href="#ios"><span class="octicon octicon-link"></span></a>iOS</h3>
+
+<ul>
+<li>import "LoadDatabase.h" and "DatabaseConfig.h" in your main class</li>
+</ul><div class="highlight highlight-objective-c"><pre><span class="cp">#import "LoadDatabase.h"</span>
+<span class="cp">#import "DatabaseConfig.h"</span>
+</pre></div>
+
+<ul>
+<li>in the init method of your main class, call the "load" method on a "LoadDatabase" object with the correct DatabaseConfig in parameters:</li>
+</ul><div class="highlight highlight-objective-c"><pre><span class="p">[[</span><span class="n">LoadDatabase</span> <span class="n">new</span><span class="p">]</span> <span class="n">load</span><span class="o">:</span><span class="p">[[</span><span class="n">DatabaseConfig</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="o">:</span><span class="s">@"myDemoSQLiteDB.zip"</span> <span class="n">secondValue</span><span class="o">:</span><span class="s">@"myDemoSQLiteDB.db"</span><span class="p">]];</span>
+</pre></div>
+
+<ul>
+<li>add the "Databases.db" file in your Resources directory</li>
+<li>add the zipped database ("myDemoSQLiteDB.zip") in your Resources directory</li>
+</ul><h3>
+<a name="windows-phone-7--8" class="anchor" href="#windows-phone-7--8"><span class="octicon octicon-link"></span></a>Windows Phone (7 &amp; 8)</h3>
+
+<ul>
+<li>check that the <a href="http://smile-sa.github.io/cordova-plugin-websqldatabase/">http://smile-sa.github.io/cordova-plugin-websqldatabase/</a> plugin (enabling WebSqlDatabase feature on Windows Phone) has been correctly installed (check that the "plugins/org.smile.websqldatabase.wpdb" directory exists)</li>
+<li>import "org.smile.websqldatabase" in your main class:</li>
+</ul><div class="highlight highlight-csharp"><pre><span class="k">using</span> <span class="nn">org.smile.websqldatabase</span><span class="p">;</span>
+</pre></div>
+
+<ul>
+<li>in the init method of your main class, call the "LoadDatabase" method on a "DatabaseLoader" object with the correct DatabaseConfig in parameters:</li>
+</ul><div class="highlight highlight-csharp"><pre><span class="k">new</span> <span class="nf">DatabaseLoader</span><span class="p">().</span><span class="n">LoadDatabase</span><span class="p">(</span><span class="k">new</span> <span class="n">DatabaseConfig</span><span class="p">(</span><span class="s">@"myDemoSQLiteDB.zip"</span><span class="p">,</span> <span class="s">@"myDemoSQLiteDB.db"</span><span class="p">));</span>
+</pre></div>
+
+<ul>
+<li>add the zipped database ("myDemoSQLiteDB.zip") in the root directory of your solution</li>
+<li>no need of a "Databases.db" file</li>
+</ul><h2>
+<a name="usage-in-javascript" class="anchor" href="#usage-in-javascript"><span class="octicon octicon-link"></span></a>Usage in JavaScript</h2>
+
+<p>Load the database with the following code:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">openDatabase</span><span class="p">(</span><span class="s2">"myDemoSQLiteDB.db"</span><span class="p">,</span> <span class="s2">"1.0"</span><span class="p">,</span> <span class="s2">"Proto DB"</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">);</span>
+</pre></div>
+
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>A prototype including this plugin is available at <a href="https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer-proto">https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer-proto</a></p>
+
+<h2>
+<a name="external-library" class="anchor" href="#external-library"><span class="octicon octicon-link"></span></a>External library</h2>
+
+<p>This plugin uses the following libraries:</p>
+
+<ul>
+<li>
+<a href="http://code.google.com/p/ziparchive/">ZipArchive</a> (under MIT License) for iOS</li>
+<li>
+<a href="http://www.sharpgis.net/post/2010/08/25/REALLY-small-unzip-utility-for-Silverlight-e28093-Part-2.aspx">SharpGIS.UnZipper</a> (under Microsoft Public License (Ms-PL)) for Windows Phone</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Cordova-plugin-websqldatabase-initializer maintained by <a href="https://github.com/Smile-SA">Smile-SA</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
