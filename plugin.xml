@@ -55,4 +55,32 @@
             * add the zipped database to initialize in your Resources directory
         </info>
     </platform>
+
+    <!-- wp7 -->
+    <platform name="wp7">
+        <source-file src="src/wp/SharpGIS.UnZipper.cs" />
+        <source-file src="src/wp/DatabaseLoader.cs" />
+        <info>
+            You need to:
+
+            * import "org.smile.websqldatabase" in your main class
+            * in the init method of your main class, call the "LoadDatabase" method on a "DatabaseLoader" object with the correct DatabaseConfig in parameters:
+            new DatabaseLoader().LoadDatabase(new DatabaseConfig(@"myDemoSQLiteDB.zip", @"myDemoSQLiteDB.db"));
+            * add the zipped database to initialize in the root directory of your solution
+        </info>
+    </platform>
+
+    <!-- wp8 -->
+    <platform name="wp8">
+        <source-file src="src/wp/SharpGIS.UnZipper.cs" />
+        <source-file src="src/wp/DatabaseLoader.cs" />
+        <info>
+            You need to:
+
+            * import "org.smile.websqldatabase" in your main class
+            * in the init method of your main class, call the "LoadDatabase" method on a "DatabaseLoader" object with the correct DatabaseConfig in parameters:
+            new DatabaseLoader().LoadDatabase(new DatabaseConfig(@"myDemoSQLiteDB.zip", @"myDemoSQLiteDB.db"));
+            * add the zipped database to initialize in the root directory of your solution
+        </info>
+    </platform>
 </plugin>
