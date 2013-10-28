@@ -1,12 +1,12 @@
 package org.smile.websqldatabase;
 
 public class DatabaseConfig {
-    public String databaseDBName = "Databases.db";
-    public String databaseZippedName;
-    public String databaseName;
-    public String loadingTitle = "Loading";
-    public String loadingText = "Loading initial data, please wait...";
-    public boolean forceReload = false;
+    private String databaseDBName = "Databases.db";
+    private String databaseZippedName;
+    private String databaseName;
+    private String loadingTitle = "Loading";
+    private String loadingText = "Loading initial data, please wait...";
+    private boolean forceReload = false;
 
     /**
      * Configuration for the Web SQL Database initializer plugin
