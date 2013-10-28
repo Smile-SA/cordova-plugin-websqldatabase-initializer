@@ -41,11 +41,13 @@
     <platform name="wp7">
         <source-file src="src/wp/SharpGIS.UnZipper.cs" />
         <source-file src="src/wp/DatabaseLoader.cs" />
+        <dependency id="org.smile.websqldatabase.wpdb" url="https://github.com/Smile-SA/cordova-plugin-websqldatabase" commit="master" />
     </platform>
 
     <!-- wp8 -->
     <platform name="wp8">
         <source-file src="src/wp/SharpGIS.UnZipper.cs" />
         <source-file src="src/wp/DatabaseLoader.cs" />
+        <dependency id="org.smile.websqldatabase.wpdb" url="https://github.com/Smile-SA/cordova-plugin-websqldatabase" commit="master" />
     </platform>
 </plugin>

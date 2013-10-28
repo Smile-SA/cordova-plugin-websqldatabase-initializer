@@ -99,7 +99,7 @@ public void onCreate(Bundle savedInstanceState) {
   
 ### Windows Phone (7 & 8)
 
-  * install the http://smile-sa.github.io/cordova-plugin-websqldatabase/ plugin to enable WebSqlDatabase feature on Windows Phone
+  * check that the http://smile-sa.github.io/cordova-plugin-websqldatabase/ plugin (enabling WebSqlDatabase feature on Windows Phone) has been correctly installed (check that the "plugins/org.smile.websqldatabase.wpdb" directory exists)
   * import "org.smile.websqldatabase" in your main class:
 
 ```csharp
