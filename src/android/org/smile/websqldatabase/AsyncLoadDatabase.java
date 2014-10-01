@@ -13,7 +13,8 @@ import java.util.zip.ZipInputStream;
 public class AsyncLoadDatabase extends AsyncTask<Void, Integer, Void> {
     private static final String TAG = "AsyncLoadDatabase";
 
-    private static final String DATABASE_FOLDER = "app_database/";
+    private static final boolean KITKAT_OR_ABOVE = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT);
+    private static final String DATABASE_FOLDER = KITKAT_OR_ABOVE ? "app_webview/databases/" : "app_database/";
 
     private ProgressDialog progressDialog;
 
@@ -126,7 +127,8 @@ public class AsyncLoadDatabase extends AsyncTask<Void, Integer, Void> {
     }
 
     private static String getDatabasePath(Context context, DatabaseConfig config) {
-        String databasePath = context.getApplicationInfo().dataDir + "/" + DATABASE_FOLDER + "file__0/" + config.getDatabaseName();
+        String databaseName = KITKAT_OR_ABOVE ? "1": config.getDatabaseName();
+        String databasePath = context.getApplicationInfo().dataDir + "/" + DATABASE_FOLDER + "file__0/" + databaseName;
         Log.v(TAG, "databasePath: " + databasePath);
         return databasePath;
     }

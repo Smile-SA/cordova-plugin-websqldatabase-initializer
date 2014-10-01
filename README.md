@@ -30,10 +30,19 @@ For iOS and Android, a Databases.db file is required to "index" the available da
 To create this file, use an SQLite client (sqlite3, sqlitebrowser, ...) and execute the following code (replacing "myDemoSQLiteDB.db" with the correct value):
 
 ```sql
-CREATE TABLE Databases (guid INTEGER PRIMARY KEY AUTOINCREMENT, origin TEXT, name TEXT, displayName TEXT, estimatedSize INTEGER, path TEXT);
-INSERT INTO Databases VALUES(1, 'file__0', 'myDemoSQLiteDB.db', 'Proto DB', 1000000, 'myDemoSQLiteDB.db');
+BEGIN TRANSACTION;
+CREATE TABLE Databases (id INTEGER PRIMARY KEY AUTOINCREMENT, origin TEXT NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, estimated_size INTEGER NOT NULL, displayName TEXT, path TEXT, guid INTEGER);
+INSERT INTO Databases VALUES(1,'file__0','myDemoSQLiteDB.db','Proto DB',0,'Proto DB','myDemoSQLiteDB.db',1);
 CREATE TABLE Origins (origin TEXT UNIQUE ON CONFLICT REPLACE, quota INTEGER NOT NULL ON CONFLICT FAIL);
-INSERT INTO Origins VALUES('file__0',52428800);
+INSERT INTO Origins VALUES('file__0', 999999999);
+CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY, value LONGVARCHAR);
+INSERT INTO meta VALUES('version',2);
+INSERT INTO meta VALUES('last_compatible_version',1);
+CREATE TABLE sqlite_sequence(name,seq);
+INSERT INTO sqlite_sequence VALUES('Databases',1);
+CREATE INDEX origin_index ON Databases (origin);
+CREATE UNIQUE INDEX unique_index ON Databases (origin, name);
+COMMIT;
 ```
 
 ## Usage
