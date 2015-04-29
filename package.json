@@ -1,0 +1,34 @@
+{
+  "name": "cordova-plugin-websqldatabase-initializer",
+  "version": "0.0.1",
+  "description": "WebSqlDatabase initializer",
+  "cordova": {
+    "id": "cordova-plugin-websqldatabase-initializer",
+    "platforms": [
+      "android",
+      "ios",
+      "wp7",
+      "wp8"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer.git"
+  },
+  "keywords": [
+    "cordova",
+    "websqldatabase",
+    "initializer",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-wp7",
+    "cordova-wp8"
+  ],
+  "author": "smile",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer/issues"
+  },
+  "homepage": "https://github.com/Smile-SA/cordova-plugin-websqldatabase-initializer#readme"
+}

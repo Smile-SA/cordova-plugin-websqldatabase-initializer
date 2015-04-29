@@ -9,7 +9,7 @@ This plugin is compatible with iOS, Android and WP (7 & 8).
 Using the Cordova 3 Command-line Interface:
 
 ```sh
-cordova plugin add org.smile.websqldatabase.initializer
+cordova plugin add cordova-plugin-websqldatabase-initializer
 ```
 
 If you are not using the Cordova Command-line Interface, follow [Using Plugman to Manage Plugins](http://cordova.apache.org/docs/en/edge/plugin_ref_plugman.md.html).
